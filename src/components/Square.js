@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 
-const Square = ({ value /*use destructuring*/ }) => {
-	return <button className="square"> {value}</button>;
+const Square = () => {
+	const [value, setValue] = useState(null);
+
+	return (
+		<button className="square" onClick={() => setValue("X")}>
+			{value}
+		</button>
+	);
 };
 
 export default Square;
