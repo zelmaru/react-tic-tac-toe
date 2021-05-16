@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import Square from "./Square";
 
 const Board = () => {
+	const [squares, setSquares] = useState(Array(9).fill(null)); // an array of 9 nulls (9 squares)
+
 	const renderSquare = (i) => {
-		return <Square value={i} />;
+		return <Square value={squares[i]} />;
 	};
 
 	const status = "Next player: X";
