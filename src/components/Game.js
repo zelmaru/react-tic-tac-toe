@@ -12,6 +12,15 @@ const Game = () => {
 	const current = history[history.length - 1];
 	const squares = current.squares.slice(); // make a shallow copy of the array
 
+	const moves = history.map((step, move /*move = index */) => {
+		const description = move ? "Go to move #" + move : "Go to game start";
+		return (
+			<li>
+				<button onClick={this.jumpTo(move)}>{description}</button>
+			</li>
+		);
+	});
+
 	const handleClick = (i) => {
 		if (calculateWinner(squares) || squares[i] || !squares.includes(null)) {
 			// !squares.includes(null) - I added this to not proceed the game if all squares are used and there is no winner
