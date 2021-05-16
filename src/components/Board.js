@@ -3,18 +3,20 @@ import Square from "./Square";
 
 const Board = () => {
 	const [squares, setSquares] = useState(Array(9).fill(null)); // an array of 9 nulls (9 squares)
+	const [xIsNext, setXIsNext] = useState(true);
 
 	const handleClick = (i) => {
 		const newSquares = squares.slice(); // make a shallow copy of the array
-		newSquares[i] = "X";
+		newSquares[i] = xIsNext ? "X" : "O";
 		setSquares(newSquares);
+		setXIsNext(!xIsNext);
 	};
 
 	const renderSquare = (i) => {
 		return <Square value={squares[i]} onClick={() => handleClick(i)} />;
 	};
 
-	const status = "Next player: X";
+	const status = `Next player: ${xIsNext ? "X" : "O"}`;
 
 	return (
 		<>
