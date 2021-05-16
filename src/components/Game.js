@@ -8,15 +8,22 @@ const Game = () => {
 		},
 	]);
 	const [xIsNext, setXIsNext] = useState(true);
+	const [stepNumber, setStepNumber] = useState(0);
 
-	const current = history[history.length - 1];
+	const jumpTo = (step) => {
+		setStepNumber(step);
+		setXIsNext(step % 2 === 0); // result is  a boolean
+	};
+	//if we “go back in time” and then make a new move from that point, we throw away all the “future” history that would now become incorrect:
+	const historyAfterDrop = history.slice(0, stepNumber + 1);
+	const current = historyAfterDrop[stepNumber];
 	const squares = current.squares.slice(); // make a shallow copy of the array
 
-	const moves = history.map((step, move /*move = index */) => {
+	const moves = historyAfterDrop.map((step, move /*move = index */) => {
 		const description = move ? "Go to move #" + move : "Go to game start";
 		return (
 			<li key={move}>
-				<button onClick={this.jumpTo(move)}>{description}</button>
+				<button onClick={() => jumpTo(move)}>{description}</button>
 			</li>
 		);
 	});
@@ -29,7 +36,7 @@ const Game = () => {
 
 		squares[i] = xIsNext ? "X" : "O";
 		setHistory(
-			history.concat([
+			historyAfterDrop.concat([
 				// Unlike the push() method, the concat() method doesn’t mutate the original array, so we prefer it.
 				{
 					squares: squares,
@@ -37,6 +44,7 @@ const Game = () => {
 			])
 		);
 		setXIsNext(!xIsNext);
+		setStepNumber(historyAfterDrop.length);
 	};
 
 	const calculateWinner = (squares) => {
@@ -81,8 +89,8 @@ const Game = () => {
 				<Board squares={squares} handleClick={handleClick} status={status} />
 			</div>
 			<div className="game-info">
-				<div>{/*status*/}</div>
-				<ol>{/*TODO*/}</ol>
+				<div>{status}</div>
+				<ol>{moves}</ol>
 			</div>
 		</div>
 	);
