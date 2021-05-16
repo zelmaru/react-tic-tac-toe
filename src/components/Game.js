@@ -89,7 +89,7 @@ const Game = () => {
 				<Board squares={squares} handleClick={handleClick} status={status} />
 			</div>
 			<div className="game-info">
-				<div>{status}</div>
+				<div className="status">{status}</div>
 				<ol>{moves}</ol>
 			</div>
 		</div>

@@ -8,7 +8,6 @@ const Board = ({ squares, handleClick, status }) => {
 
 	return (
 		<>
-			<div className="status">{status}</div>
 			<div className="board-row">
 				{renderSquare(0)}
 				{renderSquare(1)}
